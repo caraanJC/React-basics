@@ -1,22 +1,21 @@
-import React from 'react'
+import { useHistory } from 'react-router-dom'
 import NewMeetupForm from '../components/meetups/NewMeetupForm'
 
 const NewMeetupPage = () => {
+  const history = useHistory()
   const addMeetupHandler = (meetupData) => {
     fetch(
-      'https://react-getting-started-dba01-default-rtdb.firebaseio.com/meetups',
+      'https://react-getting-started-dba01-default-rtdb.firebaseio.com/meetups.json',
       {
         method: 'POST',
         body: JSON.stringify(meetupData),
         headers: {
           'Content-type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE, PUT',
-          'Access-Control-Allow-Headers':
-            'append,delete,entries,foreach,get,has,keys,set,values,Authorization',
         },
       }
-    )
+    ).then(() => {
+      history.replace('/')
+    })
   }
   return (
     <section>
